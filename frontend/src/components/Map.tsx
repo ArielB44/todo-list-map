@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
+import styled from "styled-components";
 
 export default function Map() {
     useEffect(() => {
@@ -14,7 +15,13 @@ export default function Map() {
         return () => map.remove();
     }, []);
 
+    const MapDiv = styled.div`
+        position: absolute;
+        width: 100%;
+        height: 100%
+    `
+
     return (
-        <div id="map" style={{ position: 'absolute', width: '100%', height: '100%',}}/>
+        <MapDiv id="map"/>
     );
 }
