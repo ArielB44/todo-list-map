@@ -18,8 +18,8 @@ export default function Map() {
     const MapDiv = styled.div`
         position: absolute;
         width: 100%;
-        height: 100%
-    `
+        height: 100%;
+    `;
 
     return (
         <MapDiv id="map"/>
