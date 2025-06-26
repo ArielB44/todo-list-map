@@ -10,16 +10,13 @@ export class tasksController {
     return this.taskService.getNoneDoneTasks();
   }
 
-  @Patch('/status/:taskId')
+  @Patch('/start/:taskId')
   async handleStartTask(@Param('taskId', ParseIntPipe) taskId: number) {
-    try {
-      return this.taskService.changeTaskStatusToInProgress(taskId);
-    } catch (err) {
-      if (err instanceof NotFoundException) {
-        return { message: err.message, status: HttpStatus.NOT_FOUND };
-      }
+    return this.taskService.changeTaskStatusToInProgress(taskId);
+  }
 
-      return { message: "something went wrong", status: HttpStatus.INTERNAL_SERVER_ERROR };
-    }
+  @Patch('/end/:taskId')
+  async handleDoneTask(@Param('taskId', ParseIntPipe) taskId: number) {
+    return this.taskService.changeTaskStatusToDone(taskId);
   }
 }

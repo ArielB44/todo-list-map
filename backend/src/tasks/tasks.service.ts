@@ -1,4 +1,4 @@
-import { HttpStatus, Injectable, NotFoundException } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { PrismaService } from "src/prisma.service";
 
 @Injectable()
@@ -16,10 +16,16 @@ export class tasksService {
   }
 
   async changeTaskStatusToInProgress(taskId: number) {
-    const taskToUpdate = await this.prisma.task.findUnique({where: {id: taskId}});
+    return this.prisma.task.update({
+      where: { id: taskId },
+      data: { status: 'IN_PROGRESS' }
+    });
+  }
 
-    if (!taskToUpdate) {
-      throw new NotFoundException("Task not found");
-    }
+  async changeTaskStatusToDone(taskId: number) {
+    return this.prisma.task.update({
+      where: { id: taskId },
+      data: { status: 'DONE' }
+    });
   }
 }

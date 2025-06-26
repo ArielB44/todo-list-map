@@ -1,20 +1,41 @@
 import styled from "styled-components";
 import type { Task } from "../types/Task";
 import { TaskStatuses } from "../types/Task";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { endTask, startTask } from "../api/tasks";
 
 interface Props {
   task?: Task;
 }
 
 export default function TaskCard({ task }: Props) {
+  const queryClient = useQueryClient();
+
+  const startTaskMutation = useMutation({
+    mutationFn: () => startTask(task!.id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["tasks"] });
+    },
+  });
+
+  const endTaskMutation = useMutation({
+    mutationFn: () => endTask(task!.id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["tasks"] });
+    },
+  });
+
   if (!task) return null;
 
   return (
     <Card $inProgress={task.status == TaskStatuses.IN_PROGRESS}>
       <Content>{task.content}</Content>
       <Buttons>
-        {task.status != TaskStatuses.IN_PROGRESS && <ActionButton $color="#3498db">Start Task</ActionButton>}
-        <ActionButton $color="#2ecc71">Done</ActionButton>
+        {task.status != TaskStatuses.IN_PROGRESS && <ActionButton $color="#3498db"
+            onClick={() => startTaskMutation.mutate()}>Start Task</ActionButton>}
+        <ActionButton $color="#2ecc71" onClick={() => endTaskMutation.mutate()}>
+          Done
+        </ActionButton>
       </Buttons>
     </Card>
   );
