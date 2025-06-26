@@ -7,16 +7,16 @@ export default function Map() {
     useEffect(() => {
         const map = new maplibregl.Map({
           container: 'map',
-          style: 'https://demotiles.maplibre.org/style.json',
-          center: [35.5, 32.5],
-          zoom: 4
+          style: 'https://api.maptiler.com/maps/basic-v2/style.json?key=lCQPGMq7Of8oBJgrZFPo',
+          center: [35, 31.5],
+          zoom: 7
         });
     
         return () => map.remove();
     }, []);
 
     const MapDiv = styled.div`
-        position: absolute;
+        position: relative;
         width: 100%;
         height: 100%;
     `;
