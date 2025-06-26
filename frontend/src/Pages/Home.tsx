@@ -2,6 +2,8 @@ import Map from "../components/Map"
 import NavBar from "../components/NavBar"
 import styled from "styled-components";
 import TasksGrid from "../components/TasksGrid";
+import { useQuery } from "@tanstack/react-query";
+import { getAllTasks } from "../api/tasks";
 
 export default function Home() {
   const PageLayout = styled.div`
@@ -12,6 +14,11 @@ export default function Home() {
   const MapWrapper = styled.div`
     width: 70%;
   `;
+
+  const {status, data, error} = useQuery({
+    queryKey: ["tasks"],
+    queryFn: getAllTasks
+  });
 
   return (
     <div>
