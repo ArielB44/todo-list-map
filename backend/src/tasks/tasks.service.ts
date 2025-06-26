@@ -6,6 +6,12 @@ export class tasksService {
   constructor(private prisma: PrismaService) {}
 
   async getAllTasks() {
-    return this.prisma.task.findMany();
+    return this.prisma.task.findMany({
+      where: {
+        status: {
+          not: 'DONE'
+        }
+      }
+    });
   }
 }

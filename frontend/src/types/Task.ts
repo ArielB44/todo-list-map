@@ -7,4 +7,4 @@ export interface Task {
   createdAt: string;
 }
 
-type TaskStatus = 'PENDING' | 'IN_PROGRESS' | 'DONE';
+export type TaskStatus = 'PENDING' | 'IN_PROGRESS' | 'DONE';

@@ -12,7 +12,7 @@ export default function TaskCard({ task }: Props) {
     <Card>
       <Content>{task.content}</Content>
       <Buttons>
-        <ActionButton $color="#3498db">Start Task</ActionButton>
+        {task.status && <ActionButton $color="#3498db">Start Task</ActionButton>}
         <ActionButton $color="#2ecc71">Done</ActionButton>
       </Buttons>
     </Card>
