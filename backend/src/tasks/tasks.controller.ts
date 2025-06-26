@@ -6,7 +6,7 @@ export class tasksController {
   constructor(private taskService: tasksService) {}
 
   @Get()
-  async handleGetAllTasks() {
-    return this.taskService.getAllTasks();
+  async handlegetNoneDoneTasks() {
+    return this.taskService.getNoneDoneTasks();
   }
 }

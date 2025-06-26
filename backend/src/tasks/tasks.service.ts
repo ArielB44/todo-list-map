@@ -5,7 +5,7 @@ import { PrismaService } from "src/prisma.service";
 export class tasksService {
   constructor(private prisma: PrismaService) {}
 
-  async getAllTasks() {
+  async getNoneDoneTasks() {
     return this.prisma.task.findMany({
       where: {
         status: {
