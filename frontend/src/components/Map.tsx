@@ -1,9 +1,14 @@
 import { useEffect } from "react";
-import maplibregl from 'maplibre-gl';
+import maplibregl, { Marker, Popup } from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import styled from "styled-components";
+import type { Task } from "../types/Task";
 
-export default function Map() {
+interface Props {
+  tasks?: Task[]
+}
+
+export default function Map({tasks}: Props) {
     useEffect(() => {
         const map = new maplibregl.Map({
           container: 'map',
@@ -11,6 +16,14 @@ export default function Map() {
           center: [35, 31.5],
           zoom: 7
         });
+
+        tasks?.map((task) => {
+            new Marker({
+                color: "orange",
+            }).setLngLat([task.longitude as number, task.latitude as number])
+               .setPopup(new Popup().setHTML(`<h4 style="color: black;">${task.content}</h4>`))
+               .addTo(map);
+        })
     
         return () => map.remove();
     }, []);

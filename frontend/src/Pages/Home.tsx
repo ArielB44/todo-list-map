@@ -15,7 +15,7 @@ export default function Home() {
     width: 70%;
   `;
 
-  const {status, data, error} = useQuery({
+  const {data} = useQuery({
     queryKey: ["tasks"],
     queryFn: getAllTasks
   });
@@ -24,9 +24,9 @@ export default function Home() {
     <div>
         <NavBar />
         <PageLayout>
-            <TasksGrid />
+            <TasksGrid tasks={data} />
             <MapWrapper>
-                <Map />
+                <Map tasks={data} />
             </MapWrapper>
         </PageLayout>
     </div>
