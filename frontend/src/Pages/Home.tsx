@@ -13,6 +13,7 @@ export default function Home() {
 
   const MapWrapper = styled.div`
     width: 70%;
+    height: 100%;
   `;
 
   const {data} = useQuery({

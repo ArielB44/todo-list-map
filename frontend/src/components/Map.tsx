@@ -21,7 +21,10 @@ export default function Map({tasks}: Props) {
             new Marker({
                 color: "orange",
             }).setLngLat([task.longitude as number, task.latitude as number])
-               .setPopup(new Popup().setHTML(`<h4 style="color: black;">${task.content}</h4>`))
+               .setPopup(new Popup()
+                    .setHTML(`<h4 style="color: black;">
+                                    ${`task: ${task.content}`}
+                              </h4>`))
                .addTo(map);
         })
     
