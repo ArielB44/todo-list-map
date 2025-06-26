@@ -8,3 +8,9 @@ export interface Task {
 }
 
 export type TaskStatus = 'PENDING' | 'IN_PROGRESS' | 'DONE';
+
+export const TaskStatuses = {
+  PENDING: 'PENDING',
+  IN_PROGRESS: 'IN_PROGRESS',
+  DONE: 'DONE'
+} as const;

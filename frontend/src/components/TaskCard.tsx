@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import type { Task } from "../types/Task";
+import { TaskStatuses } from "../types/Task";
 
 interface Props {
   task?: Task;
@@ -9,19 +10,19 @@ export default function TaskCard({ task }: Props) {
   if (!task) return null;
 
   return (
-    <Card>
+    <Card $inProgress={task.status == TaskStatuses.IN_PROGRESS}>
       <Content>{task.content}</Content>
       <Buttons>
-        {task.status && <ActionButton $color="#3498db">Start Task</ActionButton>}
+        {task.status != TaskStatuses.IN_PROGRESS && <ActionButton $color="#3498db">Start Task</ActionButton>}
         <ActionButton $color="#2ecc71">Done</ActionButton>
       </Buttons>
     </Card>
   );
 }
 
-const Card = styled.div`
+const Card = styled.div<{ $inProgress: boolean }>`
   background-color: rgb(236, 236, 236);
-  border: 2px solid black;
+  border: 4px solid ${({ $inProgress }) => $inProgress === true ? "green" : "black"};
   border-radius: 12px;
   padding: 15px;
   margin-bottom: 10px;
