@@ -8,12 +8,19 @@ import { getAllTasks } from "../api/tasks";
 export default function Home() {
   const PageLayout = styled.div`
     display: flex;
-    height: calc(100vh - 80px);
+    height: 100vh;
+    overflow: hidden;
   `;
 
   const MapWrapper = styled.div`
     width: 70%;
     height: 100%;
+  `;
+
+  const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
   `;
 
   const {data} = useQuery({
@@ -22,14 +29,14 @@ export default function Home() {
   });
 
   return (
-    <div>
-        <NavBar />
-        <PageLayout>
-            <TasksGrid tasks={data} />
-            <MapWrapper>
-                <Map tasks={data} />
-            </MapWrapper>
-        </PageLayout>
-    </div>
-  )
+    <Container>
+      <NavBar />
+      <PageLayout>
+        <TasksGrid tasks={data} />
+        <MapWrapper>
+          <Map tasks={data} />
+        </MapWrapper>
+      </PageLayout>
+    </Container>
+  );
 }

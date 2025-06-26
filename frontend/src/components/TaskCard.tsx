@@ -33,7 +33,7 @@ export default function TaskCard({ task }: Props) {
       <Buttons>
         {task.status != TaskStatuses.IN_PROGRESS && 
         <ActionButton $color="#3498db" onClick={() => startTaskMutation.mutate()}>
-          Start Task
+          Start
         </ActionButton>}
         <ActionButton $color="#2ecc71" onClick={() => endTaskMutation.mutate()}>
           Done
@@ -59,6 +59,7 @@ const Content = styled.div`
   font-weight: 700;
   color: black;
   font-size: 16px;
+  width: 50%;
 `;
 
 const Buttons = styled.div`
@@ -73,4 +74,5 @@ const ActionButton = styled.button<{ $color: string }>`
   padding: 8px 12px;
   border-radius: 6px;
   font-weight: 600;
+  height: 50px
 `;
