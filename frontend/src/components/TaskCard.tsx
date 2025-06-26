@@ -31,8 +31,10 @@ export default function TaskCard({ task }: Props) {
     <Card $inProgress={task.status == TaskStatuses.IN_PROGRESS}>
       <Content>{task.content}</Content>
       <Buttons>
-        {task.status != TaskStatuses.IN_PROGRESS && <ActionButton $color="#3498db"
-            onClick={() => startTaskMutation.mutate()}>Start Task</ActionButton>}
+        {task.status != TaskStatuses.IN_PROGRESS && 
+        <ActionButton $color="#3498db" onClick={() => startTaskMutation.mutate()}>
+          Start Task
+        </ActionButton>}
         <ActionButton $color="#2ecc71" onClick={() => endTaskMutation.mutate()}>
           Done
         </ActionButton>

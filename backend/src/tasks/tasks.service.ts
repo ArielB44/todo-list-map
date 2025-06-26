@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { PrismaService } from "src/prisma.service";
+import { TaskStatus } from "src/shared/enums/task-status.enum";
 
 @Injectable()
 export class tasksService {
@@ -9,7 +10,7 @@ export class tasksService {
     return this.prisma.task.findMany({
       where: {
         status: {
-          not: 'DONE'
+          not: TaskStatus.DONE
         }
       }
     });
@@ -18,14 +19,14 @@ export class tasksService {
   async changeTaskStatusToInProgress(taskId: number) {
     return this.prisma.task.update({
       where: { id: taskId },
-      data: { status: 'IN_PROGRESS' }
+      data: { status: TaskStatus.IN_PROGRESS }
     });
   }
 
   async changeTaskStatusToDone(taskId: number) {
     return this.prisma.task.update({
       where: { id: taskId },
-      data: { status: 'DONE' }
+      data: { status: TaskStatus.DONE }
     });
   }
 }
