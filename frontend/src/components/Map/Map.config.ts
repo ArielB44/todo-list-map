@@ -1,0 +1,6 @@
+export const MAP_SETTINGS = {
+  MAP_CENTER_LNG: 35,
+  MAP_CENTER_LAT: 31.5,
+  MAP_ZOOM: 7,
+  MAP_MARKER_COLOR: '#2ecc71',
+};
