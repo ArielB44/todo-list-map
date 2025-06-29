@@ -1,4 +1,4 @@
-import Map from "../components/Map";
+import Map from "../components/Map/Map";
 import HeaderBar from "../components/HeaderBar";
 import styled from "styled-components";
 import TasksGrid from "../components/TasksGrid";
