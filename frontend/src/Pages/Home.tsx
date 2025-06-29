@@ -8,7 +8,7 @@ import { getAllTasks } from "../api/tasks";
 export default function Home() {
   const PageLayout = styled.div`
     display: flex;
-    height: 100vh;
+    flex-grow: 1;
     overflow: hidden;
   `;
 
