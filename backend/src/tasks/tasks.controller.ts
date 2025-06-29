@@ -1,4 +1,4 @@
-import { Controller, Get, HttpStatus, NotFoundException, Param, ParseIntPipe, Patch } from "@nestjs/common";
+import { Body, Controller, Get, HttpStatus, NotFoundException, Param, ParseIntPipe, Patch } from "@nestjs/common";
 import { tasksService } from "./tasks.service";
 import { TaskStatus } from "src/shared/enums/task-status.enum";
 
@@ -7,9 +7,17 @@ export class tasksController {
   constructor(private taskService: tasksService) {}
 
   @Get()
-  async handlegetNoneDoneTasks() {
-    return this.taskService.getNoneDoneTasks();
-  }
+     async handleGetTasksWithStatusFilter(@Body() body: { statuses: TaskStatus[] }) {
+       try {
+         const tasks = await this.taskService.getTasksWithStatusFilter(body.statuses || []);
+         return {
+           statusCode: HttpStatus.OK,
+           data: tasks,
+         };
+       } catch (error) {
+         throw new NotFoundException(`Error fetching tasks: ${error.message}`);
+       }
+     }
 
   @Patch('/status/:taskId/:status')
   async handleTaskStatusUpdate(

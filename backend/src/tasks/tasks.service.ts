@@ -6,14 +6,22 @@ import { TaskStatus } from "src/shared/enums/task-status.enum";
 export class tasksService {
   constructor(private prisma: PrismaService) {}
 
-  async getNoneDoneTasks() {
-    return this.prisma.task.findMany({
-      where: {
-        status: {
-          not: TaskStatus.DONE
-        }
+  async getTasksWithStatusFilter(statuses: TaskStatus[]) {
+    try {
+      if (!statuses || statuses.length === 0) {
+        return await this.prisma.task.findMany();
       }
-    });
+      
+      return await this.prisma.task.findMany({
+           where: {
+             status: {
+               in: statuses,
+             },
+           },
+         });
+    } catch (error) {
+        throw new Error('Failed to fetch tasks');
+       }
   }
 
   async changeTaskStatus(taskId: number, newStatus: TaskStatus) {
