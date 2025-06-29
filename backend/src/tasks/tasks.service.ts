@@ -1,6 +1,6 @@
 import { Injectable, BadRequestException } from "@nestjs/common";
 import { PrismaService } from "src/prisma.service";
-import { TaskDto, TaskStatus } from "src/shared/enums/task-status.enum";
+import { TaskDto, TaskStatus } from "src/shared/enums/taskDTO";
 
 @Injectable()
 export class tasksService {

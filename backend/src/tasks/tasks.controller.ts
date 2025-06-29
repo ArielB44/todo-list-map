@@ -1,6 +1,6 @@
 import { BadRequestException, Body, Controller, Get, HttpStatus, NotFoundException, Param, ParseIntPipe, Patch, Post, Query } from "@nestjs/common";
 import { tasksService } from "./tasks.service";
-import { TaskDto, TaskStatus } from "src/shared/enums/task-status.enum";
+import { TaskDto, TaskStatus } from "src/shared/enums/taskDTO";
 
 @Controller('tasks')
 export class tasksController {
