@@ -9,8 +9,7 @@ export class tasksController {
   @Post()
   async handleGetTasksWithStatusFilter(@Body() body: { statuses: TaskStatus[] }) {
       try {
-         const tasks = await this.taskService.getTasksWithStatusFilter(body.statuses || []);
-         return tasks;
+         return await this.taskService.getTasksWithStatusFilter(body.statuses || []);
        } catch (error) {
          throw new NotFoundException(`Error fetching tasks: ${error.message}`);
        }

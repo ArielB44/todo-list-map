@@ -10,7 +10,7 @@ export interface Task {
   id: number;
   content: string;
   status: TaskStatus;
-  latitude?: number | null;
-  longitude?: number | null;
+  latitude: number;
+  longitude: number;
   createdAt: string;
 }

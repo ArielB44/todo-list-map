@@ -17,10 +17,12 @@ export default function Map({tasks}: Props) {
           zoom: import.meta.env.VITE_MAP_CENTER_ZOOM
         });
 
-        tasks?.map((task) => {
+        const tasksWithPosition = tasks?.filter(task => task.latitude && task.longitude)
+
+        tasksWithPosition?.map((task) => {
             new Marker({
                 color: import.meta.env.VITE_MAP_MARKER_COLOR,
-            }).setLngLat([task.longitude as number, task.latitude as number])
+            }).setLngLat([task.longitude, task.latitude])
                .setPopup(new Popup()
                     .setHTML(`<h4 style="color: black;"> ${`task: ${task.content}`} </h4>`))
                .addTo(map);
