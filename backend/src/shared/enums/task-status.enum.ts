@@ -4,11 +4,8 @@ export enum TaskStatus {
   DONE = 'DONE',
 }
 
-export interface Task {
-  id: number;
+export interface TaskDto {
   content: string;
-  status: TaskStatus;
   latitude: number;
   longitude: number;
-  createdAt: string;
 }

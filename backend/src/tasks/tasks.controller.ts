@@ -1,6 +1,6 @@
-import { BadRequestException, Controller, Get, HttpStatus, NotFoundException, Param, ParseIntPipe, Patch, Post, Query } from "@nestjs/common";
+import { BadRequestException, Body, Controller, Get, HttpStatus, NotFoundException, Param, ParseIntPipe, Patch, Post, Query } from "@nestjs/common";
 import { tasksService } from "./tasks.service";
-import { TaskStatus } from "src/shared/enums/task-status.enum";
+import { TaskDto, TaskStatus } from "src/shared/enums/task-status.enum";
 
 @Controller('tasks')
 export class tasksController {
@@ -32,6 +32,16 @@ export class tasksController {
         throw new BadRequestException(error.message);
       }
       throw error;
+    }
+  }
+
+  @Post()
+  async handleAddTask(@Body() newTask: TaskDto) {
+    try {
+      await this.taskService.addTask(newTask);
+      return { message: `task added successfully` };
+    } catch(err) {
+      throw new BadRequestException(err);
     }
   }
 }
