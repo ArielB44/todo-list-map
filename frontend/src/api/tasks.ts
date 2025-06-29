@@ -1,5 +1,6 @@
 import type { Task, TaskStatus } from "../types/Task";
 import customAxios from "./customAxios";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export const getTasksByStatuses = async (statuses: TaskStatus[] = []): Promise<Task[]> => {
   return customAxios
@@ -7,10 +8,18 @@ export const getTasksByStatuses = async (statuses: TaskStatus[] = []): Promise<T
     .then(res => res.data);
 };
 
-export const startTask = async (taskId: number) => {
-  return customAxios.patch(`/tasks/start/${taskId}`);
-};
+export const updateTaskStatus = async(taskId: number, status: TaskStatus) => {
+  return customAxios.patch(`/tasks/status/${taskId}/${status}`);
+}
 
-export const endTask = async (taskId: number) => {
-  return customAxios.patch(`/tasks/end/${taskId}`);
+export const useUpdateTaskStatus = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ taskId, status }: { taskId: number; status: TaskStatus }) =>
+      updateTaskStatus(taskId, status),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["tasks"] });
+    },
+  });
 };
