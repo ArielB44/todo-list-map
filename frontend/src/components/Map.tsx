@@ -12,19 +12,17 @@ export default function Map({tasks}: Props) {
     useEffect(() => {
         const map = new maplibregl.Map({
           container: 'map',
-          style: 'https://api.maptiler.com/maps/basic-v2/style.json?key=lCQPGMq7Of8oBJgrZFPo',
-          center: [35, 31.5],
-          zoom: 7
+          style: import.meta.env.VITE_MAP_CENTER_STYLE,
+          center: [import.meta.env.VITE_MAP_CENTER_LNG, import.meta.env.VITE_MAP_CENTER_LAT],
+          zoom: import.meta.env.VITE_MAP_CENTER_ZOOM
         });
 
         tasks?.map((task) => {
             new Marker({
-                color: "orange",
+                color: import.meta.env.VITE_MAP_MARKER_COLOR,
             }).setLngLat([task.longitude as number, task.latitude as number])
                .setPopup(new Popup()
-                    .setHTML(`<h4 style="color: black;">
-                                    ${`task: ${task.content}`}
-                              </h4>`))
+                    .setHTML(`<h4 style="color: black;"> ${`task: ${task.content}`} </h4>`))
                .addTo(map);
         })
     
