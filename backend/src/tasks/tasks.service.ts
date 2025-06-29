@@ -33,7 +33,7 @@ export class tasksService {
       throw new NotFoundException(`Task with ID ${taskId} not found`);
     }
 
-    return this.prisma.task.update({
+    return await this.prisma.task.update({
       where: { id: taskId },
       data: { status: newStatus },
     });
