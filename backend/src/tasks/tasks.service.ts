@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import { Injectable, BadRequestException } from "@nestjs/common";
 import { PrismaService } from "src/prisma.service";
 import { TaskStatus } from "src/shared/enums/task-status.enum";
 
@@ -25,17 +25,13 @@ export class tasksService {
   }
 
   async changeTaskStatus(taskId: number, newStatus: TaskStatus) {
-    const task = await this.prisma.task.findUnique({
-      where: { id: taskId },
-    });
-
-    if (!task) {
-      throw new NotFoundException(`Task with ID ${taskId} not found`);
+    try {
+      return await this.prisma.task.update({
+        where: { id: taskId },
+        data: { status: newStatus },
+      });
+    } catch(err) {
+      throw new BadRequestException(`Bad request`);
     }
-
-    return await this.prisma.task.update({
-      where: { id: taskId },
-      data: { status: newStatus },
-    });
   }
 }

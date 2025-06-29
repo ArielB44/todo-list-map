@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export default function NavBar() {
+export default function HeaderBar() {
     const Bar = styled.nav`
         font-size: 25px;
         background-color:rgb(134, 166, 204);

@@ -1,4 +1,4 @@
-import { Body, Controller, HttpStatus, NotFoundException, Param, ParseIntPipe, Patch, Post } from "@nestjs/common";
+import { BadRequestException, Body, Controller, HttpStatus, NotFoundException, Param, ParseIntPipe, Patch, Post } from "@nestjs/common";
 import { tasksService } from "./tasks.service";
 import { TaskStatus } from "src/shared/enums/task-status.enum";
 
@@ -28,7 +28,7 @@ export class tasksController {
       };
     } catch (error) {
       if (error instanceof NotFoundException) {
-        throw new NotFoundException(`Task with ID ${taskId} not found`);
+        throw new BadRequestException(error.message);
       }
       throw error;
     }

@@ -1,5 +1,5 @@
 import Map from "../components/Map";
-import NavBar from "../components/NavBar";
+import HeaderBar from "../components/HeaderBar";
 import styled from "styled-components";
 import TasksGrid from "../components/TasksGrid";
 import { useQuery } from "@tanstack/react-query";
@@ -31,7 +31,7 @@ export default function Home() {
 
   return (
     <Container>
-      <NavBar />
+      <HeaderBar />
       <PageLayout>
         <TasksGrid tasks={data} />
         <MapWrapper>
