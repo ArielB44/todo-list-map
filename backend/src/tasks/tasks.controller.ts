@@ -1,5 +1,6 @@
 import { Controller, Get, HttpStatus, NotFoundException, Param, ParseIntPipe, Patch } from "@nestjs/common";
 import { tasksService } from "./tasks.service";
+import { TaskStatus } from "src/shared/enums/task-status.enum";
 
 @Controller('tasks')
 export class tasksController {
@@ -10,13 +11,22 @@ export class tasksController {
     return this.taskService.getNoneDoneTasks();
   }
 
-  @Patch('/start/:taskId')
-  async handleStartTask(@Param('taskId', ParseIntPipe) taskId: number) {
-    return this.taskService.changeTaskStatusToInProgress(taskId);
-  }
-
-  @Patch('/end/:taskId')
-  async handleDoneTask(@Param('taskId', ParseIntPipe) taskId: number) {
-    return this.taskService.changeTaskStatusToDone(taskId);
+  @Patch('/status/:taskId/:status')
+  async handleTaskStatusUpdate(
+    @Param('taskId', ParseIntPipe) taskId: number,
+    @Param('status') status: TaskStatus,
+  ) {
+    try {
+      const updatedTask = await this.taskService.changeTaskStatus(taskId, status);
+      return {
+        statusCode: HttpStatus.OK,
+        data: updatedTask,
+      };
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw new NotFoundException(`Task with ID ${taskId} not found`);
+      }
+      throw error;
+    }
   }
 }

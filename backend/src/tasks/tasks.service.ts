@@ -16,17 +16,18 @@ export class tasksService {
     });
   }
 
-  async changeTaskStatusToInProgress(taskId: number) {
-    return this.prisma.task.update({
+  async changeTaskStatus(taskId: number, newStatus: TaskStatus) {
+    const task = await this.prisma.task.findUnique({
       where: { id: taskId },
-      data: { status: TaskStatus.IN_PROGRESS }
     });
-  }
 
-  async changeTaskStatusToDone(taskId: number) {
+    if (!task) {
+      throw new NotFoundException(`Task with ID ${taskId} not found`);
+    }
+
     return this.prisma.task.update({
       where: { id: taskId },
-      data: { status: TaskStatus.DONE }
+      data: { status: newStatus },
     });
   }
 }
