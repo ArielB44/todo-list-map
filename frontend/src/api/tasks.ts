@@ -3,7 +3,11 @@ import customAxios from "./customAxios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export const getTasksByStatuses = async (statuses: TaskStatus[] = []): Promise<Task[]> => {
-  const response = await customAxios.post('/tasks', { statuses });
+  const response = await customAxios.get('/tasks', {
+    params: {
+      statuses, 
+    },
+  });
   return response.data;
 };
 

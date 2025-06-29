@@ -25,7 +25,7 @@ export default function Home() {
   `;
 
   const { data = [] } = useQuery<Task[], Error>({
-    queryKey: ["tasks", TaskStatus.PENDING, TaskStatus.IN_PROGRESS],
+    queryKey: ["tasks"],
     queryFn: () => getTasksByStatuses([TaskStatus.PENDING, TaskStatus.IN_PROGRESS]),
   });
 
