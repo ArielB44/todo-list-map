@@ -31,7 +31,7 @@ export class tasksService {
         data: { status: newStatus },
       });
     } catch(err) {
-      throw new BadRequestException(`Bad request`);
+      throw new BadRequestException();
     }
   }
 }
