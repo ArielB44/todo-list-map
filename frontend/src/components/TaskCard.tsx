@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import type { Task } from "../types/Task";
-import { TaskStatuses } from "../types/Task";
+import { TaskStatus } from "../types/Task";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { endTask, startTask } from "../api/tasks";
 
@@ -28,10 +28,10 @@ export default function TaskCard({ task }: Props) {
   if (!task) return null;
 
   return (
-    <Card $inProgress={task.status == TaskStatuses.IN_PROGRESS}>
+    <Card $inProgress={task.status == TaskStatus.IN_PROGRESS}>
       <Content>{task.content}</Content>
       <Buttons>
-        {task.status != TaskStatuses.IN_PROGRESS && 
+        {task.status != TaskStatus.IN_PROGRESS && 
         <ActionButton $color="#3498db" onClick={() => startTaskMutation.mutate()}>
           Start
         </ActionButton>}

@@ -1,9 +1,10 @@
-import Map from "../components/Map"
-import NavBar from "../components/NavBar"
+import Map from "../components/Map";
+import NavBar from "../components/NavBar";
 import styled from "styled-components";
 import TasksGrid from "../components/TasksGrid";
 import { useQuery } from "@tanstack/react-query";
-import { getAllTasks } from "../api/tasks";
+import { getTasksByStatuses } from "../api/tasks";
+import { TaskStatus, type Task } from "../types/Task";
 
 export default function Home() {
   const PageLayout = styled.div`
@@ -23,9 +24,9 @@ export default function Home() {
     height: 100vh;
   `;
 
-  const {data} = useQuery({
-    queryKey: ["tasks"],
-    queryFn: getAllTasks
+  const { data = [] } = useQuery<Task[], Error>({
+    queryKey: ["tasks", TaskStatus.PENDING, TaskStatus.IN_PROGRESS],
+    queryFn: () => getTasksByStatuses([TaskStatus.PENDING, TaskStatus.IN_PROGRESS]),
   });
 
   return (

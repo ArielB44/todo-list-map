@@ -1,3 +1,11 @@
+export const TaskStatus = {
+  PENDING: 'PENDING',
+  IN_PROGRESS: 'IN_PROGRESS',
+  DONE: 'DONE',
+} as const;
+
+export type TaskStatus = typeof TaskStatus[keyof typeof TaskStatus];
+
 export interface Task {
   id: number;
   content: string;
@@ -6,11 +14,3 @@ export interface Task {
   longitude?: number | null;
   createdAt: string;
 }
-
-export type TaskStatus = 'PENDING' | 'IN_PROGRESS' | 'DONE';
-
-export const TaskStatuses = {
-  PENDING: 'PENDING',
-  IN_PROGRESS: 'IN_PROGRESS',
-  DONE: 'DONE'
-} as const;

@@ -1,8 +1,9 @@
+import type { Task, TaskStatus } from "../types/Task";
 import customAxios from "./customAxios";
 
-export const getAllTasks = async () => {
+export const getTasksByStatuses = async (statuses: TaskStatus[] = []): Promise<Task[]> => {
   return customAxios
-    .get('/tasks')
+    .post('/tasks', { statuses })
     .then(res => res.data);
 };
 
